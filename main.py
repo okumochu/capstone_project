@@ -1,12 +1,16 @@
 from typing import List
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
-from sql_app import crud,models,schemas
+from sql_app import crud, models, schemas
 from sql_app.database import SessionLocal, engine
 
 # uvicorn main:app --reload
+# http://127.0.0.1:8000/redoc
+# http://127.0.0.1:8000/docs
 
 models.Base.metadata.create_all(bind=engine)
+# create our table by calling the model.Base.metadata.create_all()
+# function and bind our database engine to it
 
 app = FastAPI()
 
@@ -25,6 +29,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db, email=user.email)
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
+        # fast api built-in  raise HTTPException
     return crud.create_user(db=db, user=user)
 
 
