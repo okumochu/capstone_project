@@ -7,4 +7,4 @@
 ###openAI
 - gpt-3.5-model for summary
 - davinci for sentiment score
-- ALL of them input the output format of gpt-3.5-turbo
+- ALL of them input with the format of gpt-3.5-turbo (use countToken)
